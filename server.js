@@ -6,6 +6,7 @@ require('dotenv').config();
 
 // app
 const app = express();
+const postRoutes = require('./routes/post');
 
 // db
 mongoose
@@ -21,12 +22,12 @@ app.use(cors());
 app.use(morgan('dev'));
 app.use(express.json());
 
+
+
+app.use('/api', postRoutes);
+
 // route
-app.get('*', (req, res) => {
-    res.json({
-        data: 'You reached nodejs api for react node crud app'
-    });
-});
+
 
 // port
 const port = process.env.PORT || 8000;

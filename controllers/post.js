@@ -21,3 +21,14 @@ exports.create = async (req, res) => {
     return res.status(200).json(post);
 
 };
+
+exports.list = async (req, res) => {
+    const posts = await Post.find({})
+        .limit(10)
+        .sort({ createdAt: 'asc' })
+        .exec();
+
+    if(posts)
+        return res.status(200).json(posts);
+    return res.status(400).json({ error: 'api error' }); 
+};

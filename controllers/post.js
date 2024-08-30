@@ -32,3 +32,13 @@ exports.list = async (req, res) => {
         return res.status(200).json(posts);
     return res.status(400).json({ error: 'api error' }); 
 };
+
+exports.read = async (req, res) => {
+    console.log(req.params.slug)
+    const { slug } = req.params;
+    const post = await Post.findOne({ slug }).exec();
+
+    if(!post)
+        return res.status(400).json({ error: 'api error' })
+    return res.status(200).json(post);
+};

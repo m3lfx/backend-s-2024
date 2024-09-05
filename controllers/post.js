@@ -42,3 +42,25 @@ exports.read = async (req, res) => {
         return res.status(400).json({ error: 'api error' })
     return res.status(200).json(post);
 };
+
+exports.remove = async (req, res) => {
+    // console.log(req.pramas.slug)
+    const { slug } = req.params;
+    const post = await Post.findOneAndDelete({ slug }).exec()
+
+    if(!post)
+        return res.status(400).json({ error: 'delete error' })
+    return res.status(200).json({message: "post deleted"});
+};
+
+exports.update = async (req, res) => {
+    const { slug } = req.params;
+    const { title, content, user } = req.body;
+    try {
+        const post = await Post.findOneAndUpdate({ slug }, { title, content, user }, { new: true })
+        return res.status(200).json(post)
+    } catch (error) {
+        return res.status(400).json({ error: 'update error' })
+    }
+    
+};

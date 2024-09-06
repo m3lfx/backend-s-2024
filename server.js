@@ -7,6 +7,7 @@ require('dotenv').config();
 // app
 const app = express();
 const postRoutes = require('./routes/post');
+const authRoutes = require('./routes/auth');
 
 // db
 mongoose
@@ -25,6 +26,7 @@ app.use(express.json());
 
 
 app.use('/api', postRoutes);
+app.use('/api', authRoutes);
 
 // route
 

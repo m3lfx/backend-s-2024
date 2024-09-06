@@ -56,8 +56,9 @@ exports.remove = async (req, res) => {
 exports.update = async (req, res) => {
     const { slug } = req.params;
     const { title, content, user } = req.body;
+     newSlug = slugify(title);
     try {
-        const post = await Post.findOneAndUpdate({ slug }, { title, content, user }, { new: true })
+        const post = await Post.findOneAndUpdate({ slug }, { title, content, user, slug: newSlug }, { new: true })
         return res.status(200).json(post)
     } catch (error) {
         return res.status(400).json({ error: 'update error' })
